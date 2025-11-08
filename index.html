@@ -2,324 +2,231 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Премиальные Ссылки</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LuckyBear | Играть сейчас</title>
+  <link rel="icon" href="https://luckybear.fun//_next/static/media/home_logo.a028b260.png">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      background: radial-gradient(circle at top, #001a33, #000814);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
-      color: #ffffff;
       text-align: center;
-      padding: 40px 20px;
-      position: relative;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    body::before {
-      content: '';
+    img {
+      width: 55vw;
+      max-width: 220px;
+      min-width: 140px;
+      margin-bottom: 50px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .play-btn {
+      background: linear-gradient(90deg, #007bff, #0055cc);
+      color: white;
+      border: none;
+      padding: 18px 70px;
+      font-size: 1.4em;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 20px rgba(0, 123, 255, 0.4);
+      width: 80%;
+      max-width: 320px;
+    }
+
+    .play-btn:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .popup {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: -1;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s ease;
+      z-index: 10;
+      padding: 20px;
     }
 
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
+    .popup.active {
+      visibility: visible;
+      opacity: 1;
     }
 
-    .avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      margin-bottom: 30px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(10px);
+    .popup-content {
+      background: #001f3d;
+      padding: 25px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0, 123, 255, 0.5);
+      width: 90%;
+      max-width: 360px;
+      animation: fadeIn 0.4s ease;
     }
 
-    .avatar:hover {
-      transform: translateY(-8px) scale(1.05);
-      box-shadow: 
-        0 30px 60px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(255, 255, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    .popup h2 {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #fff;
+      line-height: 1.4em;
     }
 
-    h1 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(28px, 5vw, 36px);
-      font-weight: 600;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 50%, #e8e9ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-
-    h2 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(28px, 5vw, 36px);
-      font-weight: 600;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #db3636 0%, #fff8f8 50%, #e8e9ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-
-    .subtitle {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 40px;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-
-    .video-container {
-      position: relative;
-      margin-bottom: 50px;
-    }
-
-    .video-box {
-      width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
-      border-radius: 20px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .video-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 
-        0 35px 70px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    video {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 20px;
-    }
-
-    .links-container {
+    .popup-buttons {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      align-items: center;
+      gap: 15px;
     }
 
-    .link {
-      display: flex;
-      align-items: center;
+    .popup button {
+      background: linear-gradient(90deg, #007bff, #0055cc);
+      border: none;
+      color: white;
+      padding: 14px 25px;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.25s;
       width: 100%;
-      max-width: 380px;
-      padding: 20px 30px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 600;
-      color: #ffffff;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      letter-spacing: 0.3px;
     }
 
-    .link-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 15px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-      flex-shrink: 0;
+    .popup button:active {
+      transform: scale(0.97);
+      background: linear-gradient(90deg, #008cff, #004ecc);
     }
 
-    .link:hover .link-icon {
-      transform: scale(1.1);
-      border-color: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-    }
-
-    .link-content {
-      display: flex;
+    .loading {
+      display: none;
+      flex-direction: column;
       align-items: center;
-      flex: 1;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
     }
 
-    .link::before {
-      content: '';
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid #00aaff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .vpn-warning {
+      display: none;
+      margin-top: 15px;
+      font-size: 0.95em;
+      color: #ffcc00;
+      animation: fadeIn 0.5s ease;
+    }
+
+    footer {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: -1;
+      bottom: 10px;
+      font-size: 0.8em;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      width: 100%;
     }
 
-    .link:nth-child(1) {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    @media (max-height: 600px) {
+      img { margin-bottom: 30px; }
+      .play-btn { padding: 14px 50px; font-size: 1.1em; }
     }
-
-    .link:nth-child(2) {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      box-shadow: 0 15px 35px rgba(240, 147, 251, 0.4);
-    }
-
-    .link:nth-child(3) {
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
-    }
-
-    .link:nth-child(4) {
-      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-      box-shadow: 0 15px 35px rgba(67, 233, 123, 0.4);
-    }
-
-    .link:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .link:hover::before {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-    }
-
-    .link:active {
-      transform: translateY(-4px) scale(0.98);
-    }
-
-    .emoji {
-      font-size: 24px;
-      margin-right: 12px;
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-
-    .link:hover .emoji {
-      transform: scale(1.2) rotate(5deg);
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 30px 15px;
-      }
-      
-      .avatar {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .link {
-        max-width: 100%;
-        padding: 18px 25px;
-        font-size: 16px;
-      }
-      
-      .video-box {
-        max-width: 100%;
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .container > * {
-      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    .container > *:nth-child(1) { animation-delay: 0.1s; }
-    .container > *:nth-child(2) { animation-delay: 0.2s; }
-    .container > *:nth-child(3) { animation-delay: 0.3s; }
-    .container > *:nth-child(4) { animation-delay: 0.4s; }
-    .container > *:nth-child(5) { animation-delay: 0.5s; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="image/avia.webp" alt="Avatar" class="avatar">
 
-    <h1>ИНСТРУКЦИЯ</h1>
-    
-    
-    <div class="video-container">
-      <div class="video-box">
-        <!-- Локальное видео -->
-        <video controls>
-          <source src="video/tutor.mp4" type="video/mp4">
-          Ваш браузер не поддерживает воспроизведение видео.
-        </video>
+  <img src="https://luckybear.fun//_next/static/media/home_logo.a028b260.png" alt="LuckyBear Logo">
+  <button class="play-btn" id="playButton">ИГРАТЬ</button>
+
+  <div class="popup" id="popup">
+    <div class="popup-content" id="popupContent">
+      <h2>ДЛЯ ИГРЫ НУЖЕН VPN</h2>
+      <div class="popup-buttons" id="popupButtons">
+        <button id="continueBtn">ПРОДОЛЖИТЬ</button>
+        <button id="vpnBtn">СКАЧАТЬ VPN</button>
+      </div>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Переходим на сайт...</p>
+        <div class="vpn-warning" id="vpnWarning">
+          Без VPN вряд ли загрузится...<br>
+          <button id="installVpnBtn">Установить VPN</button>
+        </div>
       </div>
     </div>
-<h1>ССЫЛКИ</h1>
-<h2>ВКЛЮЧАЙТЕ VPN</h2>
-    <div class="links-container">
-      <a class="link" href="https://t.me/Min_Lucky_Bear_bot/app?startapp=bXN0PTB4MTg5ZWExZmMmbT1WVlZWVlYmYz1UR0JPVA" target="_blank">
-        <img src="image/avia.webp" alt="Aviamasters" class="link-icon">
-        <div class="link-content">
-          Aviamasters - Играть сейчас 
-        </div>
-      </a>
-      <a class="link" href="https://t.me/+3kDkgknbihViNWJi" target="_blank">
-        <img src="image/tg.jpg" alt="Telegram" class="link-icon">
-        <div class="link-content">
-      Telegram-канал | Конкурсы
-        </div>
-      </a>
-    </div>
   </div>
+
+  <footer>© 2025 LuckyBear.fun</footer>
+
+  <script>
+    const playButton = document.getElementById('playButton');
+    const popup = document.getElementById('popup');
+    const continueBtn = document.getElementById('continueBtn');
+    const vpnBtn = document.getElementById('vpnBtn');
+    const loading = document.getElementById('loading');
+    const popupButtons = document.getElementById('popupButtons');
+    const vpnWarning = document.getElementById('vpnWarning');
+    const installVpnBtn = document.getElementById('installVpnBtn');
+
+    playButton.addEventListener('click', () => {
+      popup.classList.add('active');
+    });
+
+    continueBtn.addEventListener('click', () => {
+      popupButtons.style.display = 'none';
+      loading.style.display = 'flex';
+
+      // имитация загрузки
+      setTimeout(() => {
+        vpnWarning.style.display = 'block';
+      }, 3000);
+
+      // перенаправление на сайт
+      window.location.href = "https://lbgame777.xyz/7HLPAi";
+    });
+
+    vpnBtn.addEventListener('click', () => {
+      window.location.href = "https://t.me/Moriartyvpnbot?start=ref_5221Z0Z42SRN22";
+    });
+
+    installVpnBtn.addEventListener('click', () => {
+      window.location.href = "https://t.me/Moriartyvpnbot?start=ref_5221Z0Z42SRN22";
+    });
+  </script>
+
 </body>
 </html>
